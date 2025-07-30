@@ -1,0 +1,16 @@
+# Dune build and generated files
+_build/
+
+# MacOS file
+.DS_Store
+
+# VScode files
+.vscode/
+
+# Artifacts
+*so
+*.o
+*.a
+*.cmi
+*.cmx
+a.out

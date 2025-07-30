@@ -1,0 +1,28 @@
+(library
+ (name yescrypt)
+ (public_name yescrypt_ocaml)
+ (libraries ctypes ctypes.stubs ctypes-foreign yescrypt_ocaml.bindings)
+ (modules
+   yescrypt
+   yescrypt_generated
+ )
+
+ (foreign_stubs
+  (language c)
+  (names
+    yescrypt_stubs ; Generated stubs (needed for linking)
+    yescrypt-common
+    yescrypt-platform
+    yescrypt-ref
+    sha256
+    insecure_memzero
+  )
+ )
+)
+
+; Rule to generate yescrypt_stubs.c + yescrypt_generated.ml in lib/
+(rule
+ (targets yescrypt_stubs.c yescrypt_generated.ml)
+ (deps ../lib_gen/yescrypt_bindgen.exe)
+ (action (run ../lib_gen/yescrypt_bindgen.exe))
+)

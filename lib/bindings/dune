@@ -1,0 +1,6 @@
+(library
+ (name yescrypt_bindings)
+ (public_name yescrypt_ocaml.bindings)
+ (modules yescrypt_types yescrypt_bindings)
+ (libraries ctypes ctypes.stubs ctypes-foreign)
+)

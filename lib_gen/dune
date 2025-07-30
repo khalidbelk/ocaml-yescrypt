@@ -1,0 +1,13 @@
+(executable
+ (name yescrypt_bindgen)
+
+ (modules
+  yescrypt_bindgen
+ )
+
+ (libraries ctypes ctypes.stubs ctypes-foreign
+  yescrypt_ocaml.bindings
+ )
+
+)
+
