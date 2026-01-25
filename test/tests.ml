@@ -2,6 +2,13 @@ open OUnit2
 
 module Y = Yescrypt
 
+let hex_printer list = String.concat "; " (List.map (Printf.sprintf "%02x") list)
+let int_list_of_bytes bytes =
+  bytes
+    |> Bytes.to_seq
+    |> Seq.map Char.code
+    |> List.of_seq
+
 (* Tests from the official rfc 7914 scrypt tests vectors  *)
 (* https://www.rfc-editor.org/rfc/rfc7914.html#page-13 *)
 let test_scrypt_bytes _ =
@@ -12,13 +19,9 @@ let test_scrypt_bytes _ =
     0xc7; 0x27; 0xaf; 0xb9; 0x4a; 0x83; 0xee; 0x6d; 0x83; 0x60; 0xcb; 0xdf; 0xa2; 0xcc; 0x06; 0x40
   ] in
   let derived_key = Y.crypto_scrypt_bytes ~passwd:"password" ~salt:"NaCl" ~n:1024 ~r:8 ~p:16 ~buf_len:64 in
-  let derived_key_bytes_list =
-      derived_key
-      |> Bytes.to_seq
-      |> Seq.map Char.code
-      |> List.of_seq
+  let derived_key_bytes_list = int_list_of_bytes derived_key
   in
-    assert_equal ~printer:(fun l -> String.concat "; " (List.map (Printf.sprintf "%02x") l)) expected derived_key_bytes_list
+    assert_equal ~printer:hex_printer expected derived_key_bytes_list
 
 let test_scrypt_bytes_2 _ =
   let expected = [
@@ -28,18 +31,27 @@ let test_scrypt_bytes_2 _ =
     0xe8; 0xd3; 0xe0; 0xfb; 0x2e; 0x0d; 0x36; 0x28; 0xcf; 0x35; 0xe2; 0x0c; 0x38; 0xd1; 0x89; 0x06
   ] in
   let derived_key = Y.crypto_scrypt_bytes ~passwd:"" ~salt:"" ~n:16 ~r:1 ~p:1 ~buf_len:64 in
-  let derived_key_bytes_list =
-      derived_key
-      |> Bytes.to_seq
-      |> Seq.map Char.code
-      |> List.of_seq
+  let derived_key_bytes_list = int_list_of_bytes derived_key
   in
-    assert_equal ~printer:(fun l -> String.concat "; " (List.map (Printf.sprintf "%02x") l)) expected derived_key_bytes_list
+    assert_equal ~printer:hex_printer expected derived_key_bytes_list
+
+let test_scrypt_bytes_3 _ =
+  let expected = [
+    0x21; 0x01; 0xcb; 0x9b; 0x6a; 0x51; 0x1a; 0xae; 0xad; 0xdb; 0xbe; 0x09; 0xcf; 0x70; 0xf8; 0x81;
+    0xec; 0x56; 0x8d; 0x57; 0x4a; 0x2f; 0xfd; 0x4d; 0xab; 0xe5; 0xee; 0x98; 0x20; 0xad; 0xaa; 0x47;
+    0x8e; 0x56; 0xfd; 0x8f; 0x4b; 0xa5; 0xd0; 0x9f; 0xfa; 0x1c; 0x6d; 0x92; 0x7c; 0x40; 0xf4; 0xc3;
+    0x37; 0x30; 0x40; 0x49; 0xe8; 0xa9; 0x52; 0xfb; 0xcb; 0xf4; 0x5c; 0x6f; 0xa7; 0x7a; 0x41; 0xa4
+  ] in
+  let derived_key = Y.crypto_scrypt_bytes ~passwd:"pleaseletmein" ~salt:"SodiumChloride" ~n:1048576 ~r:8 ~p:1 ~buf_len:64 in
+  let derived_key_bytes_list = int_list_of_bytes derived_key
+  in
+    assert_equal ~printer:hex_printer expected derived_key_bytes_list
 
 let test_suite =
   "ocaml-yescrypt tests" >::: [
-    "Scrypt (bytes) test" >:: test_scrypt_bytes;
-    "Scrypt (bytes) test 2" >:: test_scrypt_bytes_2
+    "Scrypt (bytes) - Test 1" >:: test_scrypt_bytes;
+    "Scrypt (bytes) - Test 2" >:: test_scrypt_bytes_2;
+    "Scrypt (bytes) - Test 3" >:: test_scrypt_bytes_3
   ]
 
 let () =
