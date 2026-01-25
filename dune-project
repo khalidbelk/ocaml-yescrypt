@@ -14,7 +14,7 @@
 
 (license "Apache-2.0")
 
-(documentation https://github.com/khalidbelk/ocaml-yescrypt)
+(documentation https://khalidbelk.github.io/ocaml-yescrypt/index.html)
 
 (package
  (name ocaml-yescrypt)

@@ -16,7 +16,7 @@ tags: [
   "bindings"
 ]
 homepage: "https://github.com/khalidbelk/ocaml-yescrypt"
-doc: "https://github.com/khalidbelk/ocaml-yescrypt"
+doc: "https://khalidbelk.github.io/ocaml-yescrypt/index.html"
 bug-reports: "https://github.com/khalidbelk/ocaml-yescrypt/issues"
 depends: [
   "ocaml" {>= "5.0"}
