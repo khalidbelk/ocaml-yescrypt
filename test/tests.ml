@@ -47,8 +47,22 @@ let test_scrypt_bytes_3 _ =
   in
     assert_equal ~printer:hex_printer expected derived_key_bytes_list
 
+let test_scrypt _ =
+  let expected = "bb8f53927ad87674912f5851dd92e71b75c1611d15a7e1260dd4c7cec62148189df6ab204701367ff3b898fdf924f8df4d3f7088d60f96b580ec7ef1a8a6b046" in
+  let derived_key = Y.crypto_scrypt ~passwd:"pacificState" ~salt:"808state" ~n:4 ~r:1 ~p:1 ~buf_len:64
+  in
+    assert_equal ~printer:(fun s -> Printf.sprintf "%s\n" s) expected derived_key
+
+let test_scrypt_2 _ =
+  let expected = "2cdd43bf50323ff0589d4b101643c59bd81e2f4bdab7569c1ab6bcf643a8ab6b255b24cbfdb70c068a3997cf3c952cd85b73518e5a9d2bbad920dfe10a3a1528" in
+  let derived_key = Y.crypto_scrypt ~passwd:"ifYouDontStruggleYouDontImprove" ~salt:"epitech" ~n:128 ~r:4 ~p:1 ~buf_len:64
+  in
+    assert_equal ~printer:(fun s -> Printf.sprintf "%s\n" s) expected derived_key
+
 let test_suite =
   "ocaml-yescrypt tests" >::: [
+    "Scrypt - Test 1" >:: test_scrypt;
+    "Scrypt - Test 2" >:: test_scrypt_2;
     "Scrypt (bytes) - Test 1" >:: test_scrypt_bytes;
     "Scrypt (bytes) - Test 2" >:: test_scrypt_bytes_2;
     "Scrypt (bytes) - Test 3" >:: test_scrypt_bytes_3
