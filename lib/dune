@@ -1,3 +1,5 @@
+(include_subdirs unqualified)
+
 (library
  (name yescrypt)
  (public_name yescrypt_ocaml)
@@ -19,6 +21,7 @@
     sha256
     insecure_memzero
   )
+  (flags -I c_lib/lib)
  )
 )
 
