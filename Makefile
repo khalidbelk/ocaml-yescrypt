@@ -14,6 +14,10 @@ LIB_NAME=ocaml-yescrypt
 OPAM_FILE=${LIB_NAME}.opam
 
 all: ${LIB_NAME}
+	@${MAKE} doc
+
+doc:
+	@dune build @doc
 
 ${LIB_NAME}:
 	@echo "${GREEN}Building${RESET} $(LIB_NAME) library..."

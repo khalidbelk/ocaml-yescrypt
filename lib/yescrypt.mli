@@ -10,12 +10,16 @@ exception Crypto_scrypt_error of string
 (** [crypto_scrypt ~passwd ~salt ~n ~r ~p ~buf_len] computes scrypt KDF
     and returns the result as a hexadecimal string.
 
-    @param passwd The password string
-    @param salt The salt string
-    @param n CPU/memory cost parameter (must be power of 2 > 1)
-    @param r Block size parameter
-    @param p Parallelization parameter
-    @param buf_len Output length in bytes
+    {b Parameters:}
+    {ul
+      {- [passwd] - The password string}
+      {- [salt] - The salt string}
+      {- [n] - CPU/memory cost parameter (must be power of 2 > 1)}
+      {- [r] - Block size parameter}
+      {- [p] - Parallelization parameter}
+      {- [buf_len] - Output length in bytes}
+    }
+
     @return The derived key as a hexadecimal string
     @raise Crypto_scrypt_error if the operation fails
 *)
@@ -31,12 +35,16 @@ val crypto_scrypt :
 (** [crypto_scrypt_bytes ~passwd ~salt ~n ~r ~p ~buf_len] computes scrypt KDF
     and returns the result as raw bytes.
 
-    @param passwd The password string
-    @param salt The salt string
-    @param n CPU/memory cost parameter (must be power of 2 > 1)
-    @param r Block size parameter
-    @param p Parallelization parameter
-    @param buf_len Output length in bytes
+    {b Parameters:}
+    {ul
+      {- [passwd] — The password string}
+      {- [salt] — The salt string}
+      {- [n] — CPU/memory cost parameter (must be power of 2 > 1)}
+      {- [r] — Block size parameter}
+      {- [p] — Parallelization parameter}
+      {- [buf_len] — Output length in bytes}
+    }
+
     @return The derived key as raw bytes
     @raise Crypto_scrypt_error if the operation fails
 *)
@@ -59,11 +67,15 @@ exception Yescrypt_error of string
 
     {b Note:} This function is NOT thread-safe due to the underlying C implementation.
 
-    @param passwd The password string
-    @param salt The salt string
-    @param n CPU/memory cost parameter (must be power of 2 > 1)
-    @param r Block size parameter
-    @param p Parallelization parameter
+    {b Parameters:}
+    {ul
+      {- [passwd] The password string}
+      {- [salt] The salt string}
+      {- [n] CPU/memory cost parameter (must be power of 2 > 1)}
+      {- [r] Block size parameter}
+      {- [p] Parallelization parameter}
+    }
+
     @return The encoded hash string (includes salt and params, suitable for storage)
     @raise Yescrypt_error if the operation fails.
 
