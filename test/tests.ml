@@ -2,6 +2,8 @@ open OUnit2
 
 module Y = Yescrypt
 
+(* Tests from the official rfc 7914 scrypt tests vectors  *)
+(* https://www.rfc-editor.org/rfc/rfc7914.html#page-13 *)
 let test_scrypt_bytes _ =
   let expected = [
     0xfd; 0xba; 0xbe; 0x1c; 0x9d; 0x34; 0x72; 0x00; 0x78; 0x56; 0xe7; 0x19; 0x0d; 0x01; 0xe9; 0xfe;
