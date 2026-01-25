@@ -35,10 +35,14 @@ jobs:
         run: opam install . --deps-only --with-doc --with-test
 
       - name: Build library
-        run: make
+        run: |
+          eval $(opam env)
+          make
 
       - name: Build documentation
-        run: make doc
+        run: |
+          eval $(opam env)
+          make doc
 
       - name: Upload docs artifact
         uses: actions/upload-pages-artifact@v3
