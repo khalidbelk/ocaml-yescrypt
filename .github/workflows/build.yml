@@ -1,4 +1,4 @@
-name: Build and Deploy Docs
+name: Build, Test and Deploy Docs
 
 on:
   push:
@@ -14,12 +14,17 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+      fail-fast: true
 
     steps:
       - name: Checkout code
@@ -28,29 +33,46 @@ jobs:
       - name: Setup OCaml
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: "5.2"
+          ocaml-compiler: 5.2
           dune-cache: true
+          cache: true
 
       - name: Install dependencies
         run: opam install . --deps-only --with-doc --with-test
 
       - name: Build library
-        run: |
-          eval $(opam env)
-          make
+        run: eval $(opam env) && make
 
       - name: Build documentation
-        run: |
-          eval $(opam env)
-          make doc
+        run: eval $(opam env) && make doc
 
       - name: Upload docs artifact
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-pages-artifact@v3
         with:
           path: _build/default/_doc/_html
 
-  deploy:
+  test:
     needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup OCaml
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: 5.2
+          dune-cache: true
+          cache: true
+
+      - name: Install dependencies
+        run: opam install . --deps-only --with-test
+
+      - name: Run unit tests
+        run: eval $(opam env) && make test
+
+  deploy:
+    needs: [build, test]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
 
