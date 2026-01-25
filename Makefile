@@ -7,19 +7,28 @@
 GREEN=\033[0;32m
 RESET=\033[0m
 
-NAME = a.out
+EXEC = a.out
 
+LIB_NAME=ocaml-yescrypt
 
-all: $(NAME)
+OPAM_FILE=${LIB_NAME}.opam
 
-$(C_YESCRYPT_LIB):
-	${MAKE} -C ${C_YESCRYPT_LIB_DIR}
+all: ${LIB_NAME}
 
-$(NAME):
-	@echo "${GREEN}Building${RESET} $(NAME)..."
+${LIB_NAME}:
+	@echo "${GREEN}Building${RESET} $(LIB_NAME) library..."
+	@dune build @install
+	@echo "${GREEN}✔ Done.${RESET} Library successfully built."
+
+exec-test:
+	@echo "${GREEN}Building${RESET} $(EXEC) test executable..."
 	@dune build bin/main.exe
-	@install -m 755 _build/default/bin/main.exe $(NAME)
+	@install -m 755 _build/default/bin/main.exe $(EXEC)
 	@echo "${GREEN}✔ Done.${RESET}"
+
+opam:
+	@echo "${GREEN}Generating${RESET} $(OPAM_FILE)..."
+	@dune build ${OPAM_FILE}
 
 clean:
 	@echo "Cleaning..."
