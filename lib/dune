@@ -2,8 +2,8 @@
 
 (library
  (name yescrypt)
- (public_name yescrypt_ocaml)
- (libraries ctypes ctypes.stubs ctypes-foreign yescrypt_ocaml.bindings)
+ (public_name ocaml-yescrypt)
+ (libraries ctypes ctypes.stubs ctypes-foreign ocaml-yescrypt.bindings)
  (modules
    yescrypt
    yescrypt_internal

@@ -6,8 +6,7 @@
  )
 
  (libraries ctypes ctypes.stubs ctypes-foreign
-  yescrypt_ocaml.bindings
+  ocaml-yescrypt.bindings
  )
-
 )
 

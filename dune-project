@@ -1,27 +1,31 @@
 (lang dune 3.16)
-(name yescrypt_ocaml)
+(name ocaml-yescrypt)
 
 (using ctypes 0.3)
 
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github khalidbelk/ocaml-yescrypt))
 
-(authors "Author Name")
+(authors "Khalid B.")
 
-(maintainers "Maintainer Name")
+(maintainers "Khalid B.")
 
-(license LICENSE)
+(license MIT)
 
-(documentation https://url/to/documentation)
+(documentation https://github.com/khalidbelk/ocaml-yescrypt)
 
 (package
- (name yescrypt_ocaml)
- (synopsis "A short synopsis")
- (description "A longer description")
- (depends ocaml dune)
+ (name ocaml-yescrypt)
+ (synopsis "OCaml bindings for the Yescrypt KDF")
+ (description "OCaml bindings for the Yescrypt password hashing / key derivation function.")
+ (depends
+  (ocaml (>= "5.0"))
+  (dune (>= "3.16"))
+  (ctypes (>= "0.20"))
+  ctypes-foreign)
  (tags
-  (topics "to describe" your project)))
+  (cryptography password-hashing kdf yescrypt scrypt ocaml bindings)))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/reference/dune-project/index.html
