@@ -12,7 +12,7 @@
 
 (maintainers "Khalid B.")
 
-(license MIT)
+(license "Apache-2.0")
 
 (documentation https://github.com/khalidbelk/ocaml-yescrypt)
 

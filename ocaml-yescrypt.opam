@@ -5,7 +5,7 @@ description:
   "OCaml bindings for the Yescrypt password hashing / key derivation function."
 maintainer: ["Khalid B."]
 authors: ["Khalid B."]
-license: "MIT"
+license: "Apache-2.0"
 tags: [
   "cryptography"
   "password-hashing"
