@@ -21,7 +21,7 @@
     sha256
     insecure_memzero
   )
-  (flags -I c_lib/)
+  (flags -fPIC -I c_lib/)
  )
 )
 
