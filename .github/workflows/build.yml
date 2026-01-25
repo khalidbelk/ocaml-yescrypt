@@ -35,7 +35,6 @@ jobs:
         with:
           ocaml-compiler: 5.2
           dune-cache: true
-          cache: true
 
       - name: Install dependencies
         run: opam install . --deps-only --with-doc --with-test
@@ -63,7 +62,6 @@ jobs:
         with:
           ocaml-compiler: 5.2
           dune-cache: true
-          cache: true
 
       - name: Install dependencies
         run: opam install . --deps-only --with-test

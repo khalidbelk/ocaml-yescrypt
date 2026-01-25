@@ -24,7 +24,9 @@
   (ocaml (>= "5.0"))
   (dune (>= "3.16"))
   (ctypes (>= "0.20"))
-  ctypes-foreign)
+  ctypes-foreign
+  (ounit2 :with-test)
+ )
  (tags
   (cryptography password-hashing kdf yescrypt scrypt ocaml bindings)))
 
