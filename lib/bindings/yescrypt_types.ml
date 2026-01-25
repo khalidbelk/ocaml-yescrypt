@@ -1,6 +1,7 @@
 open Ctypes
 
-module Types (S : Cstubs.Types.TYPE) = struct
+module Types  = struct
+
   type yescrypt_params_t
   type yescrypt_binary_t
   type yescrypt_region_t

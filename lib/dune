@@ -4,6 +4,8 @@
  (libraries ctypes ctypes.stubs ctypes-foreign yescrypt_ocaml.bindings)
  (modules
    yescrypt
+   yescrypt_internal
+   yescrypt_flags
    yescrypt_generated
  )
 
