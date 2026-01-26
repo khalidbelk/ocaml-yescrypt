@@ -9,6 +9,18 @@ let int_list_of_bytes bytes =
     |> Seq.map Char.code
     |> List.of_seq
 
+let test_yescrypt _ =
+  let expected = "$y$j1.$C3qEg/$pXKYOq1TxqjvePu9vt0KaEmMxCZ2MtbZiX2V1pPsZh7" in
+  let derived_key = Y.yescrypt ~passwd:"password" ~salt:"NaCl" ~n:16 ~r:1 ~p:1
+  in
+    assert_equal ~printer:(fun s -> Printf.sprintf "%s\n" s) expected derived_key
+
+let test_yescrypt_2 _ =
+  let expected = "$y$j4D.4$n/$2yTMuh1vMkRH9VRE9jx1RsGVJgUe3Q7/9cFXC8cXaH7" in
+  let derived_key = Y.yescrypt ~passwd:"p" ~salt:"s" ~n:182 ~r:16 ~p:8
+  in
+    assert_equal ~printer:(fun s -> Printf.sprintf "%s\n" s) expected derived_key
+
 (* Tests from the official rfc 7914 scrypt tests vectors  *)
 (* https://www.rfc-editor.org/rfc/rfc7914.html#page-13 *)
 let test_scrypt_bytes _ =
@@ -61,6 +73,8 @@ let test_scrypt_2 _ =
 
 let test_suite =
   "ocaml-yescrypt tests" >::: [
+    "Yescrypt - Test 1" >:: test_yescrypt;
+    "Yescrypt - Test 2" >:: test_yescrypt_2;
     "Scrypt - Test 1" >:: test_scrypt;
     "Scrypt - Test 2" >:: test_scrypt_2;
     "Scrypt (bytes) - Test 1" >:: test_scrypt_bytes;

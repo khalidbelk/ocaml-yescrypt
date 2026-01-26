@@ -16,29 +16,36 @@ module Types  = struct
 
   let () = seal yescrypt_region_t
 
-  (* Aliases for yescrypt_region_t *)
+  (* Typedefs for yescrypt_shared_t and yescrypt_local_t *)
   type yescrypt_shared_t = yescrypt_region_t structure
   type yescrypt_local_t = yescrypt_region_t structure
+
+  let yescrypt_shared_t : yescrypt_shared_t typ = typedef yescrypt_region_t "yescrypt_shared_t"
+  let yescrypt_local_t : yescrypt_local_t typ = typedef yescrypt_region_t "yescrypt_local_t"
   (* End *)
 
   (* Structure: yescrypt_params_t *)
-  let yescrypt_params_t : yescrypt_params_t structure typ = structure "yescrypt_params_t"
-  let flags = field yescrypt_params_t "flags" uint32_t
-  let n = field yescrypt_params_t "N" uint64_t
-  let r = field yescrypt_params_t "r" uint32_t
-  let p = field yescrypt_params_t "p" uint32_t
-  let t = field yescrypt_params_t "t" uint32_t
-  let g = field yescrypt_params_t "g" uint32_t
-  let nrom = field yescrypt_params_t "NROM" uint64_t
+  let yescrypt_params_struct : yescrypt_params_t structure typ = structure "yescrypt_params_t"
+  let flags = field yescrypt_params_struct "flags" uint32_t
+  let n = field yescrypt_params_struct "N" uint64_t
+  let r = field yescrypt_params_struct "r" uint32_t
+  let p = field yescrypt_params_struct "p" uint32_t
+  let t = field yescrypt_params_struct "t" uint32_t
+  let g = field yescrypt_params_struct "g" uint32_t
+  let nrom = field yescrypt_params_struct "NROM" uint64_t
   (* End *)
 
-  let () = seal yescrypt_params_t
+  let () = seal yescrypt_params_struct
+
+  let yescrypt_params_t = typedef yescrypt_params_struct "yescrypt_params_t"
 
   (* Union: yescrypt_binary_t *)
-  let yescrypt_binary_t : yescrypt_binary_t union typ = union "yescrypt_binary_t"
-  let uc = field yescrypt_binary_t "uc" (array 32 uchar)
-  let u64 = field yescrypt_binary_t "u64" (array 4 uint64_t)
+  let yescrypt_binary_union : yescrypt_binary_t union typ = union "yescrypt_binary_t"
+  let uc = field yescrypt_binary_union "uc" (array 32 uchar)
+  let u64 = field yescrypt_binary_union "u64" (array 4 uint64_t)
   (* End *)
 
-  let () = seal yescrypt_binary_t
+  let () = seal yescrypt_binary_union
+
+  let yescrypt_binary_t = typedef yescrypt_binary_union "yescrypt_binary_t"
 end
