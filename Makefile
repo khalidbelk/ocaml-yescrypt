@@ -24,6 +24,9 @@ ${LIB_NAME}:
 	@dune build @install
 	@echo "${GREEN}✔ Done.${RESET} Library successfully built."
 
+test:
+	@dune runtest
+
 exec-test:
 	@echo "${GREEN}Building${RESET} $(EXEC) test executable..."
 	@dune build bin/main.exe
@@ -44,4 +47,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean
+.PHONY: all clean test

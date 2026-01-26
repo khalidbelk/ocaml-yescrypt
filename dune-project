@@ -14,7 +14,7 @@
 
 (license "Apache-2.0")
 
-(documentation https://github.com/khalidbelk/ocaml-yescrypt)
+(documentation https://khalidbelk.github.io/ocaml-yescrypt/index.html)
 
 (package
  (name ocaml-yescrypt)
@@ -24,7 +24,9 @@
   (ocaml (>= "5.0"))
   (dune (>= "3.16"))
   (ctypes (>= "0.20"))
-  ctypes-foreign)
+  ctypes-foreign
+  (ounit2 :with-test)
+ )
  (tags
   (cryptography password-hashing kdf yescrypt scrypt ocaml bindings)))
 
