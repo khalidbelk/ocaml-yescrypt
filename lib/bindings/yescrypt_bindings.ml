@@ -27,7 +27,7 @@ module Functions (F: Cstubs.FOREIGN) = struct
 
   let yescrypt_init_shared =
     F.foreign "yescrypt_init_shared" (
-      ptr Types.yescrypt_region_t         (*  shared   *)
+      ptr Types.yescrypt_shared_t         (*  shared   *)
       @-> ptr uint8_t                     (*  seed     *)
       @-> size_t                          (*  seedlen  *)
       @-> ptr Types.yescrypt_params_t     (*  params   *)
@@ -36,46 +36,46 @@ module Functions (F: Cstubs.FOREIGN) = struct
 
   let yescrypt_digest_shared =
     F.foreign "yescrypt_digest_shared" (
-      ptr Types.yescrypt_region_t         (*  shared  *)
+      ptr Types.yescrypt_shared_t         (*  shared  *)
       @-> returning (ptr Types.yescrypt_binary_t)
     )
 
   let yescrypt_free_shared =
     F.foreign "yescrypt_free_shared" (
-      ptr Types.yescrypt_region_t        (* shared  *)
+      ptr Types.yescrypt_shared_t        (* shared  *)
       @-> returning int
     )
 
   let yescrypt_init_local =
     F.foreign "yescrypt_init_local" (
-      ptr Types.yescrypt_region_t        (* local *)
+      ptr Types.yescrypt_local_t        (* local *)
       @-> returning int
     )
 
   let yescrypt_free_local =
     F.foreign "yescrypt_free_local" (
-      ptr Types.yescrypt_region_t        (* local *)
+      ptr Types.yescrypt_local_t        (* local *)
       @-> returning int
     )
 
   let yescrypt_kdf =
     F.foreign "yescrypt_kdf" (
-      ptr Types.yescrypt_region_t       (*  shared    *)
-      @-> ptr Types.yescrypt_region_t   (*  local     *)
-      @-> ptr uint8_t               (*  passwd    *)
-      @-> size_t                    (*  passwdlen *)
-      @-> ptr uint8_t               (*  salt      *)
-      @-> size_t                    (*  saltlen   *)
+      ptr Types.yescrypt_shared_t       (*  shared    *)
+      @-> ptr Types.yescrypt_local_t    (*  local     *)
+      @-> ptr uint8_t                   (*  passwd    *)
+      @-> size_t                        (*  passwdlen *)
+      @-> ptr uint8_t                   (*  salt      *)
+      @-> size_t                        (*  saltlen   *)
       @-> ptr Types.yescrypt_params_t   (*  params    *)
-      @-> ptr uint8_t               (*  buf       *)
-      @-> size_t                    (*  buflen    *)
+      @-> ptr uint8_t                   (*  buf       *)
+      @-> size_t                        (*  buflen    *)
       @-> returning int
     )
 
   let yescrypt_r =
     F.foreign "yescrypt_r" (
-      ptr Types.yescrypt_region_t       (*  shared    *)
-      @-> ptr Types.yescrypt_region_t   (*  local     *)
+      ptr Types.yescrypt_shared_t       (*  shared    *)
+      @-> ptr Types.yescrypt_local_t    (*  local     *)
       @-> ptr uint8_t               (*  passwd    *)
       @-> size_t                    (*  passwdlen *)
       @-> ptr uint8_t               (*  setting   *)
