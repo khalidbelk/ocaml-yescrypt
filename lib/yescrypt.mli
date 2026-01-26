@@ -4,6 +4,44 @@
   File: yescrypt.mli
 *)
 
+(** Exception raised when yescrypt operations fail *)
+exception Yescrypt_error of string
+
+(** [yescrypt ~passwd ~salt ~n ~r ~p] computes a yescrypt hash.
+
+    This is the main function for password hashing with yescrypt.
+    Uses recommended default flags (YESCRYPT_RW with optimal settings).
+
+    {b Note:} This function is NOT thread-safe due to the underlying C implementation.
+
+    {b Parameters:}
+    {ul
+      {- [passwd] The password string}
+      {- [salt] The salt string}
+      {- [n] CPU/memory cost parameter (must be power of 2 > 1)}
+      {- [r] Block size parameter}
+      {- [p] Parallelization parameter}
+    }
+
+    @return The encoded hash string (includes salt and params, suitable for storage)
+    @raise Yescrypt_error if the operation fails.
+
+    {b Example:}
+    {[
+      let hash = Yescrypt.yescrypt
+        ~passwd:"password123"
+        ~salt:"randomsalt"
+        ~n:4096 ~r:32 ~p:1
+    ]}
+*)
+val yescrypt :
+  passwd:string ->
+  salt:string ->
+  n:int ->
+  r:int ->
+  p:int ->
+  string
+
 (** Exception raised when scrypt operations fail *)
 exception Crypto_scrypt_error of string
 
@@ -56,41 +94,3 @@ val crypto_scrypt_bytes :
   p:int ->
   buf_len:int ->
   bytes
-
-(** Exception raised when yescrypt operations fail *)
-exception Yescrypt_error of string
-
-(** [yescrypt ~passwd ~salt ~n ~r ~p] computes a yescrypt hash.
-
-    This is the main function for password hashing with yescrypt.
-    Uses recommended default flags (YESCRYPT_RW with optimal settings).
-
-    {b Note:} This function is NOT thread-safe due to the underlying C implementation.
-
-    {b Parameters:}
-    {ul
-      {- [passwd] The password string}
-      {- [salt] The salt string}
-      {- [n] CPU/memory cost parameter (must be power of 2 > 1)}
-      {- [r] Block size parameter}
-      {- [p] Parallelization parameter}
-    }
-
-    @return The encoded hash string (includes salt and params, suitable for storage)
-    @raise Yescrypt_error if the operation fails.
-
-    {b Example:}
-    {[
-      let hash = Yescrypt.yescrypt
-        ~passwd:"password123"
-        ~salt:"randomsalt"
-        ~n:4096 ~r:32 ~p:1
-    ]}
-*)
-val yescrypt :
-  passwd:string ->
-  salt:string ->
-  n:int ->
-  r:int ->
-  p:int ->
-  string
