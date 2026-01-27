@@ -12,6 +12,16 @@ This library provides a relatively abstract and easy-to-use API for integrating 
 
 You can find the [API documentation here](https://khalidbelk.github.io/ocaml-yescrypt/ocaml-yescrypt/index.html).
 
+## Installation
+
+To install **ocaml-yescrypt** via opam, execute the following command:
+
+```
+opam pin add -y git+https://github.com/khalidbelk/ocaml-yescrypt.git
+```
+
+> Note: this package needs the **libffi-dev** and **pkg-config** system dependencies. The names of those libraries may vary between distros / on MacOS.
+
 ## Example
 
 Here's a quick example of how to use Yescrypt:
