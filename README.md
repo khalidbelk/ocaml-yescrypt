@@ -14,7 +14,13 @@ You can find the [API documentation here](https://khalidbelk.github.io/ocaml-yes
 
 ## Installation
 
-To install **ocaml-yescrypt** via opam, execute the following command:
+Install **ocaml-yescrypt** via opam:
+
+```
+opam install ocaml-yescrypt
+```
+
+Or pin directly from source:
 
 ```
 opam pin add -y git+https://github.com/khalidbelk/ocaml-yescrypt.git
