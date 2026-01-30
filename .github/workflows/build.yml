@@ -4,9 +4,25 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'lib/**'
+      - 'lib_gen/**'
+      - 'test/**'
+      - 'dune-project'
+      - 'Makefile'
+      - '**/*.opam'
+      - '.github/workflows/**'
   pull_request:
     branches:
       - main
+    paths:
+      - 'lib/**'
+      - 'lib_gen/**'
+      - 'test/'
+      - 'dune-project'
+      - 'Makefile'
+      - '**/*.opam'
+      - '.github/workflows/**'
 
 permissions:
   contents: read
